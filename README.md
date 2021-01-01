@@ -1,6 +1,6 @@
 # myschooladmin
 
-![Frontend_Design] (support/msa_frontend-design.png)
+![Frontend](support/msa_frontend-design.png)
 
 A Minimum Viable Product (MVP) for users to upload school grades, then view and get grades report onclick.
 
@@ -19,20 +19,13 @@ Built with Vue.Js, Node.Js/ Express.Js and MySQL.
 
 ## Database Schema
 
-![Database_Schema] (support/msa_database-schema.png)
+![Database_Schema](support/msa_database-schema.png)
 
 ## API Routes Plan
 
 URI | HTTP Method | Description | Request Object | Response Object
 --- | ----------- | ----------- | -------------- | ---------------
-/api/grades/:subject_id | POST | Create grades by subject_id | body/ params | }
-id: integer,
-subject_id: varchar,
-teacher_id: integer,
-student_id: varchar,
-grade: varchar,
-semester_assessment: date
-}
+/api/grades/:subject_id | POST | Create grades by subject_id | body / params | { id: integer, subject_id: varchar, teacher_id: integer, student_id: varchar, grade: varchar, semester_assessment: varchar }
 /api/grades/:subject_id | GET | Retrieve grades by subject_id | params
 /api/grades/:semester_assessment | GET | Retrieve grades by semester_assessment | params
 /api/grades/:student_id | GET | Retrieve grades by student_id | params
@@ -40,11 +33,11 @@ semester_assessment: date
 
 ## User Flow Diagram
 
-![User_Flow] (support/msa_user-flow.png)
+![User_Flow](support/msa_user-flow.png)
 
 ## Architecture Drawing
 
-![Architecture] (support/msa_architecture.png)
+![Architecture](support/msa_architecture.png)
 
 ## Setup
 

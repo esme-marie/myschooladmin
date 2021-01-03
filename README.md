@@ -6,7 +6,7 @@ A Minimum Viable Product (MVP) for users to upload school grades, then view and 
 
 ## Motivation
 
-FOR school administrators and teachers, WHO are in need to ease administrative and grades report workload. THE MVP IS a Single Page Application THAT generates grades report promptly, UNLIKE time consuming email and spreadsheet report collaboration between teachers and administrators. THIS PRODUCT rids the user's hassle of compiling all grades from many files to create a report.
+**FOR** school administrators and teachers, **WHO** are in need to ease administrative and grades report workload. **THE** MVP IS a Single Page Application **THAT** generates grades report promptly, **UNLIKE** time consuming email and spreadsheet report collaboration between teachers and administrators. **THIS PRODUCT** rids the user's hassle of compiling all grades from many files to create a report.
 
 ## Features
 
@@ -25,11 +25,11 @@ Built with Vue.Js, Node.Js/ Express.Js and MySQL.
 
 URI | HTTP Method | Description | Request Object | Response Object
 --- | ----------- | ----------- | -------------- | ---------------
-/api/grades/:subject_id | POST | Create grades by subject_id | body / params | { id: integer, subject_id: varchar, teacher_id: integer, student_id: varchar, grade: varchar, semester_assessment: varchar }
-/api/grades/:subject_id | GET | Retrieve grades by subject_id | params
-/api/grades/:semester_assessment | GET | Retrieve grades by semester_assessment | params
-/api/grades/:student_id | GET | Retrieve grades by student_id | params
-/api/grades | GET | Retrieve all grades | params
+/users/grades/:subject_id | POST | Create grades by subject_id | body / params | { id: integer, subject_id: varchar, teacher_id: integer, student_id: varchar, grade: varchar, semester_assessment: varchar }
+/users/grades/:subject_id | GET | Retrieve grades by subject_id | params
+/users/grades/:semester_assessment | GET | Retrieve grades by semester_assessment | params
+/users/grades/:student_id | GET | Retrieve grades by student_id | params
+/users/grades | GET | Retrieve all grades | params
 
 ## User Flow Diagram
 
@@ -63,7 +63,7 @@ URI | HTTP Method | Description | Request Object | Response Object
 
 ### Run Your Development Servers
 
-- Run `yarn start` in project directory to start the Express server on port 5000
+- Run `npm start` in project directory to start the Express server on port 5000
 - `cd client` and run `npm install` to install packages and `npm run serve` to run your development build. The app will run on `http://localhost:8080` as the default port.
 
 ## Resources

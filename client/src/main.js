@@ -1,23 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import App from './App.vue'
-import Index from './components/GradesList.vue'
 // import router from './router'
+import App from './App.vue'
+import Home from './components/Home.vue'
+import Grades from './components/Grades.vue'
+
 Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
 const routes = [
-  // {
-  //   name: 'Create',
-  //   path: '/create',
-  //   component: Create
-  // },
   {
-    name: 'Index',
+    name: 'Home',
     path: '/',
-    component: Index
+    component: Home
+  },
+  {
+    name: 'Grades',
+    path: '/grades',
+    component: Grades
   },
 ];
 

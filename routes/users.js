@@ -33,8 +33,6 @@ you need to handle the uploading of grades via file upload.
 - To be more clear ... you can console.log the rows and see how you can better create your query. 
 
 */
-
-
 // -> Multer Upload Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -47,6 +45,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+let path = __basedir + '/client/public/';
+
+router.get('/', (req,res) => {
+  console.log("__basedir" + __basedir);
+  res.sendFile(path + "index.html");
+});
+
 router.post('/myschooladmin', function (req, res) {
   //read the file that is already there and save values into db. 
 
@@ -54,6 +59,7 @@ router.post('/myschooladmin', function (req, res) {
 
   //checks if the file exists
   try {
+    // let filePath = __basedir + "/uploads/" + req.file.filename;
     if (fs.existsSync('grades.xlsx')) {
 
       console.log("The file exists.");
@@ -69,12 +75,19 @@ router.post('/myschooladmin', function (req, res) {
 
         rows.shift();
 
+        // //truncate existing table before posting
+        // db("TRUNCATE TABLE grades;")
+        // .then(results => {
+        //   res.send(results.data);
+        // })
+        // .catch(err => res.status(500).send(err));
+
         ///put in the query to submit in the db. INSERT INTO 
 
         rows.forEach((col) => {
           let queryStr = "";
           col.forEach((data) => {
-            if((typeof data) === "number") {
+            if((typeof data) === "float") {
               queryStr += JSON.stringify(data)+",";
             } else {
               queryStr +=  "'"+data + "',";
@@ -83,11 +96,23 @@ router.post('/myschooladmin', function (req, res) {
           });
           queryStr = queryStr.substring(0, queryStr.length-1)
           console.log(queryStr);
-            db(`INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES (${queryStr});`)
-              .then(results => {
-                // res.send(results.data);
+            db(`TRUNCATE TABLE grades; INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES (${queryStr});`)
+              .then(() => {
+                const result = {
+                  status: "ok",
+                  filename: req.file.originalname,
+                  message: "Uploaded Successfully!",
+                }
+                res.json(result);
               })
-              .catch(err => res.status(500).send(err));
+              .catch((error) => {
+                const result = {
+                  status: "fail",
+                  filename: req.file.originalname,
+                  message: "Upload Error! message = " + error.message
+                }
+                res.json(result);
+              });
         });
 
 
@@ -141,7 +166,7 @@ router.get('/', function (req, res, next) {
 
 router.get("/myschooladmin", (req, res) => {
   // Send back the full list of grades
-  db("SELECT * FROM grades ORDER BY id ASC;")
+  db("SELECT subject_id, name, grade, given_name, last_name FROM grades INNER JOIN subjects ON grades.subject_id = subjects.id INNER JOIN students ON grades.student_id = students.id ORDER BY subject_id;")
     .then(results => {
       res.send(results.data);
     })

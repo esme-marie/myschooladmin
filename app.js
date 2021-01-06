@@ -11,20 +11,18 @@ let usersRouter = require('./routes/users');
 
 let app = express();
 
-//additional
+global.__basedir = __dirname; 
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-//addtional to replace top line
 app.use(express.static(path.join(__dirname, "client/public")));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-//additional
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/public/index.html"));
 });

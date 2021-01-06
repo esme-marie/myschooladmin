@@ -29,5 +29,3 @@ export default {
   cursor: pointer;
 }
 </style>
-
-// class="navbar navbar-expand navbar-dark bg-dark"

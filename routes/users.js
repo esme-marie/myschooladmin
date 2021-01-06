@@ -166,7 +166,7 @@ router.get('/', function (req, res, next) {
 
 router.get("/myschooladmin", (req, res) => {
   // Send back the full list of grades
-  db("SELECT subject_id, name, grade, given_name, last_name FROM grades INNER JOIN subjects ON grades.subject_id = subjects.id INNER JOIN students ON grades.student_id = students.id ORDER BY subject_id;")
+  db("SELECT subject_id, subject, grade, student_given_name, student_last_name FROM grades INNER JOIN subjects ON grades.subject_id = subjects.id INNER JOIN students ON grades.student_id = students.id ORDER BY subject_id;")
     .then(results => {
       res.send(results.data);
     })

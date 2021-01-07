@@ -10,7 +10,6 @@ const readXlsxFile = require('read-excel-file/node');
 
 global.__basedir = __dirname;
 
-
 /* 
 steps are 
 - initialize readXlslx
@@ -75,15 +74,6 @@ router.post('/myschooladmin', function (req, res) {
 
         rows.shift();
 
-        // //truncate existing table before posting
-        // db("TRUNCATE TABLE grades;")
-        // .then(results => {
-        //   res.send(results.data);
-        // })
-        // .catch(err => res.status(500).send(err));
-
-        ///put in the query to submit in the db. INSERT INTO 
-
         rows.forEach((col) => {
           let queryStr = "";
           col.forEach((data) => {
@@ -127,8 +117,6 @@ router.post('/myschooladmin', function (req, res) {
 
 });
 
-// 
-
 // // -> Express Upload RestAPIs
 // router.post('/myschooladmin', function(req, res, next) {
 //   console.log("what is the error?");
@@ -167,6 +155,33 @@ router.get('/', function (req, res, next) {
 router.get("/myschooladmin", (req, res) => {
   // Send back the full list of grades
   db("SELECT subject_id, subject, grade, student_given_name, student_last_name FROM grades INNER JOIN subjects ON grades.subject_id = subjects.id INNER JOIN students ON grades.student_id = students.id ORDER BY subject_id;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+router.get("/myschooladmin/students", (req, res) => {
+  // Send back the full list of full time students
+  db("SELECT * FROM students WHERE class_grade != 'EC' ORDER BY student_given_name;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+router.get("/myschooladmin/grades/:student_id", (req, res) => {
+  // Send back the full list of grades by student id
+  db(`SELECT subject, grade FROM grades INNER JOIN subjects ON grades.subject_id = subjects.id WHERE student_id='${req.params.student_id}' ORDER BY subject;`)
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+router.get("/myschooladmin/averagegrade/:student_id", (req, res) => {
+  // Send back the full list of average grades by student id
+  db(`SELECT student_id, AVG(grade) FROM grades GROUP BY student_id HAVING student_id='${req.params.student_id}';`)
     .then(results => {
       res.send(results.data);
     })

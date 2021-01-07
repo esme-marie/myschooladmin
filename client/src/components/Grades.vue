@@ -18,29 +18,40 @@
     <br/><br/>
     <div class="container-fluid">
       <div class="row">
-        <h1>Submitted Grades for Mid-Sem 1 / 2020-2021</h1>
+        <h1>Submitted Grades for Mid-Sem 1 | 2020-2021</h1>
         <button type="button" class="btn btn-info btn-sm ml-auto" @click="reloadPage">Refresh
           <i class="fa fa-refresh"></i>
         </button>
       </div><br/>
     </div>
-    <!-- <button style="font-size:24px">Button <i class="fa fa-refresh"></i></button> -->
     <div id="table">
-      <b-table id="table" head-constiant="dark" sticky-header striped bordered small :items="grades" :fields="fields"></b-table>
+      <b-table id="table" head-variant="dark" sticky-header striped bordered small :items="grades" :fields="fields"></b-table>
+    </div><br/><br/>
+    <div class="media d-flex flex-wrap">
+      <div class="col-md-6">
+        <p>Click on a student to view Student's Assesment Report</p>
+        <h4>Students List</h4>
+        <ul class="list-group">
+          <li class="list-group-item" v-for="(student, id) in students" :key="id" @click="getGradesbyStudent(student.id); getAverageGrade(student.id)">
+            {{ student.id }} : {{ student.student_given_name }} {{ student.student_last_name }}
+          </li>
+        </ul>
+      </div> 
+      <div class="media-body container-fluid float-right">
+        <b-table id="student-grades" bordered small :items="averageGrade"></b-table>
+        <b-table id="student-grades" bordered small :items="studentGrades"></b-table>
+      </div>
     </div>
-    <canvas id="chart" width="400" height="400"></canvas>
   </div>
 </template>
 
 <script>
-// import axios
 import axios from "axios";
 
 export default {
   name: "Grades",
   data() {
     return {
-      // keyword: '',
       fields: [
         {
           key: 'subject_id',
@@ -64,11 +75,17 @@ export default {
         }
       ],
       grades: [],
+      students: [],
+      studentGrades: [],
+      averageGrade: [],
     };
   },
 
   created() {
-    this.getGrades();
+    this.getGrades(),
+    this.getStudents(),
+    this.getGradesbyStudent(),
+    this.getAverageGrade()
   },
 
   methods: {
@@ -94,6 +111,39 @@ export default {
         console.log(err);
       }
     },
+    // Get Students 
+    async getStudents() {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/users/myschooladmin/students"
+        );
+        this.students = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    // Get Grades by Student Id
+    async getGradesbyStudent(student_id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/users/myschooladmin/grades/` + student_id
+        );
+        this.studentGrades = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    // Get Average Grade by Student Id
+    async getAverageGrade(student_id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/users/myschooladmin/averagegrade/` + student_id
+        );
+        this.averageGrade = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     reloadPage() {
     window.location.reload()
     console.log("clicked!")
@@ -103,4 +153,11 @@ export default {
 </script>
 
 <style>
+.list-group {
+  height: 200px;
+  overflow-y: scroll;
+}
+#student-grades {
+  margin-left: 22px;
+}
 </style>

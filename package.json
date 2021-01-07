@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "migrate": "node model/database.js"
+    "migrate": "node model/database.js",
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "app-module-path": "^2.2.0",
     "axios": "^0.21.1",
+    "bootstrap-vue": "^2.17.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -20,5 +21,15 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.6",
     "read-excel-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/polyfill": "^7.11.5",
+    "bootstrap": "^4.5.2",
+    "mutationobserver-shim": "^0.3.7",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "vue-cli-plugin-bootstrap-vue": "~0.7.0"
   }
 }

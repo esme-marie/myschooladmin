@@ -1,6 +1,9 @@
 <template>
   <div class="App">
     <div class="container">
+    <button type="button" class="btn btn-info btn-md float-right" @click="reloadPage">Refresh
+      <i class="fa fa-refresh"></i>
+    </button>
       <div class="row">
         <div style="background-color:#e6fffa; padding:10px; border-radius:3px">
           <h3>Upload Grades File</h3>
@@ -19,9 +22,6 @@
     <div class="container-fluid">
       <div class="row">
         <h1>Submitted Grades for Mid-Sem 1 | 2020-2021</h1>
-        <button type="button" class="btn btn-info btn-sm ml-auto" @click="reloadPage">Refresh
-          <i class="fa fa-refresh"></i>
-        </button>
       </div><br/>
     </div>
     <div id="table">
@@ -49,7 +49,7 @@
 import axios from "axios";
 
 export default {
-  name: "Grades",
+  name: "App",
   data() {
     return {
       fields: [

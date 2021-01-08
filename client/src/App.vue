@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <router-link to="/" class="navbar-brand">mySchoolAdmin</router-link>
+      <router-link to="/" class="navbar-brand">mySchoolAdmin( 😉 )</router-link>
       <div id="isActive" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/" exact-active-class="active" class="nav-link">Home</router-link>

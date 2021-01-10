@@ -1,23 +1,24 @@
 <template>
   <div class="App">
-    <div class="container">
-    <button type="button" class="btn btn-info btn-md float-right" @click="reloadPage">Refresh
-      <i class="fa fa-refresh"></i>
-    </button>
-      <div class="row">
-        <div style="background-color:#e6fffa; padding:10px; border-radius:3px">
+    <div class="flex-container">
+      <div class="flex-child alert">
+        <h4><span style="font-size: 1em; color: Salmon;"><i class="fa fa-bell"></i> Thank you for ensuring that you are uploading the correct file before hitting submit! 🙌🏻</span></h4>
+      </div>
+      <div class="flex-child upload">
+        <div style="background-color:#e6fffa; padding:22px; border-radius:11px">
+          <button type="button" class="btn btn-info btn-md float-right" @click="reloadPage"><i class="fa fa-refresh"></i></button>
           <h3>Upload Grades File</h3>
-          <form id="uploadSingleFileForm">
-            <div class="form-group">
-              <label class="control-label" for="uploadfile"></label>
-              <input type="file" class="form-control" placeholder="Select an upload file" name="file" required/>
-            </div>
-            <button type="submit" class="btn btn-danger" id="btnUploadSingleFileSubmit" @click="addGrades">Submit</button>
-          </form>
-          <div id="response" style="display:none"></div>
+            <form id="uploadSingleFileForm">
+              <div class="form-group">
+                <label class="control-label" for="uploadfile"></label>
+                <input type="file" class="form-control" placeholder="Select an upload file" name="file" required/>
+              </div>
+              <button type="submit" class="btn btn-danger" id="btnUploadSingleFileSubmit" @click="addGrades">Submit</button>
+            </form>
+          <div id="response" style="display:none"></div><br/>
         </div>
       </div>
-    </div>
+    </div>  
     <br/><br/>
     <div class="container-fluid">
       <div class="row">
@@ -29,10 +30,10 @@
     </div><br/><br/>
     <div class="media d-flex flex-wrap">
       <div class="col-md-6">
-        <p>Click on a student to view Student's Assesment Report</p>
+        <p>Click on a student to view Student's Current Assesment Report</p>
         <h4>Students List</h4>
         <ul class="list-group">
-          <li class="list-group-item" v-for="(student, id) in students" :key="id" @click="getGradesbyStudent(student.id); getAverageGrade(student.id)">
+          <li class="list-group-item list-group-item-action" v-for="(student, id) in students" :key="id" @click="getGradesbyStudent(student.id); getAverageGrade(student.id)">
             {{ student.id }} : {{ student.student_given_name }} {{ student.student_last_name }}
           </li>
         </ul>
@@ -159,5 +160,23 @@ export default {
 }
 #student-grades {
   margin-left: 22px;
+}
+.list-group-item {
+  cursor: pointer;
+}
+.flex-container {
+  display: flex;
+}
+.flex-child {
+  flex: 1;
+}  
+.flex-child:first-child {
+  margin-right: 20px;
+} 
+.alert {
+  padding: 55px;
+}
+h4 {
+  line-height: 1.8;
 }
 </style>

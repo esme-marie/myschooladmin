@@ -181,7 +181,7 @@ router.get("/myschooladmin/grades/:student_id", (req, res) => {
 
 router.get("/myschooladmin/averagegrade/:student_id", (req, res) => {
   // Send back the full list of average grades by student id
-  db(`SELECT student_id, AVG(grade) FROM grades GROUP BY student_id HAVING student_id='${req.params.student_id}';`)
+  db(`SELECT student_id, AVG(grade), semester_assessment FROM grades GROUP BY student_id, semester_assessment HAVING student_id='${req.params.student_id}';`)
     .then(results => {
       res.send(results.data);
     })

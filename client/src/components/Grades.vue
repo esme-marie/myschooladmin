@@ -30,7 +30,7 @@
         <apexchart type="bar" :options="options" :series="series"></apexchart>  
       </div>
     </div><br/><br/>
-    <div class="container-fluid" style="text-align: center; border: 2px solid salmon; border-radius: 11px; padding: 22px">
+    <div class="container-fluid" style="text-align: center; border: 3px solid salmon; border-radius: 11px; padding: 22px">
       <h3>Submitted Grades for Mid-Sem 1 | 2020-2021</h3><br/>
       <div id="table">
         <b-table id="table" head-variant="dark" sticky-header striped bordered small :items="grades" :fields="fields"></b-table>
@@ -50,7 +50,7 @@
         <b-table id="student-grades" bordered small table-variant="info" :items="averageGrade"></b-table>
         <b-table id="student-grades" bordered small table-variant="info" :items="studentGrades"></b-table>
       </div>
-    </div>
+    </div><br/><br/>
   </div>
 </template>
 

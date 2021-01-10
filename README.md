@@ -6,16 +6,35 @@ A Minimum Viable Product (MVP) for users to upload school grades, then view and 
 
 ## Motivation
 
-**FOR** school administrators and teachers, **WHO** are in need to ease administrative and grades report workload. **THE** MVP IS a Single Page Application **THAT** generates grades report promptly, **UNLIKE** time consuming email and spreadsheet report collaboration between teachers and administrators. **THIS PRODUCT** rids the user's hassle of compiling all grades from many files to create a report.
+**FOR** school administrators and teachers, **WHO** are in need to ease administrative and grades report workload. **THE** MVP IS a Single Page Application **THAT** generates grades report promptly, **UNLIKE** time consuming email and spreadsheet report collaboration between teachers and administrators. **THIS PRODUCT** rids the user's hassle of compiling all grades from many files manually to create a report.
 
 ## Features
 
 - Upload school grades excel file by subject
 - Retrieve grades report onclick with data visualization
 
+## Feature Wish List
+
+### Nice To Have Features
+
+- Authorized user login
+- Download report to excel file
+- Generate attendance report and invoicing
+- Generate financial statement and report
+- School library online platform
+- Real time students assignment/ project collaboration
+
 ## Tech / Framework
 
 Built with Vue.Js, Node.Js/ Express.Js and MySQL.
+
+### Why Did I Choose This Tech?
+
+Tech Stack | Reason
+---------- | ------
+VueJs | It is reactive, user and developer friendly. It has a simplistic approach and is flexible. It also has good documentation and an impressive support for the platform. It can be easily integrated into other frameworks and this is appealing for future project expansion.
+NodeJs / Express | It uses JavaScript as the main application to create new applications. It is easy to maintain and modify, lightweight and fast. The growing NPM (Node Package Manager) gives developers multiple tools and modules to use.
+MySQL | It is an open source database that facilitates effective management of databases and it provides comprehensive support for every application development need. It is stable, reliable and used by many well-known enterprises. It offers data security, on-demand scalability and high performance.
 
 ## Database Schema
 
@@ -23,13 +42,14 @@ Built with Vue.Js, Node.Js/ Express.Js and MySQL.
 
 ## API Routes Plan
 
-URI | HTTP Method | Description | Request Object | Response Object
---- | ----------- | ----------- | -------------- | ---------------
-/users/grades/:subject_id | POST | Create grades by subject_id | body / params | { id: integer, subject_id: varchar, teacher_id: integer, student_id: varchar, grade: varchar, semester_assessment: varchar }
-/users/grades/:subject_id | GET | Retrieve grades by subject_id | params
-/users/grades/:semester_assessment | GET | Retrieve grades by semester_assessment | params
-/users/grades/:student_id | GET | Retrieve grades by student_id | params
-/users/grades | GET | Retrieve all grades | params
+URI | HTTP Method | Description
+--- | ----------- | -----------
+/users/myschooladmin | POST | Create grades
+/users/myschooladmin | GET | Retrieve all grades
+/users/myschooladmin/students | GET | Retrieve list of students
+/users/myschooladmin/grades/:student_id | GET | Retrieve grades by student id
+/users/myschooladmin/averagegrade/:student_id | GET | Retrieve average grades by student id
+/users/myschooladmin/averagesubjectgrades | GET | Retrieve list of average subject grades
 
 ## User Flow Diagram
 
@@ -64,7 +84,7 @@ URI | HTTP Method | Description | Request Object | Response Object
 ### Run Your Development Servers
 
 - Run `npm start` in project directory to start the Express server on port 5000
-- `cd client` and run `npm install` to install packages and `npm run serve` to run your development build. The app will run on `http://localhost:8080` as the default port.
+- `cd client` and run `npm run serve` to run your development build. The app will run on `http://localhost:8080` as the default port.
 
 ## Resources
 

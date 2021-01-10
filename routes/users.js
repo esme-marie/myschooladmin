@@ -64,7 +64,7 @@ router.post('/myschooladmin', function (req, res) {
           });
           queryStr = queryStr.substring(0, queryStr.length-1)
           console.log(queryStr);
-            db(`TRUNCATE TABLE grades; INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES (${queryStr});`)
+            db(`INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES (${queryStr});`)
               .then(() => {
                 const result = {
                   status: "ok",

@@ -10,28 +10,6 @@ const readXlsxFile = require('read-excel-file/node');
 
 global.__basedir = __dirname;
 
-/* 
-steps are 
-- initialize readXlslx
-- initialize multer
-- initialize upload variable 
-- write the api post request 
-- follow the steps below
-
-you need to handle the uploading of grades via file upload.
-- post /uploadGrades
-- in the browser example ... your upload object should be ready with the multer initialized. 
-- inside the post you have to also take the ExcelData2MySql
-- readXlsxFile should already be initialized. 
-- then you are writing each row as an INSERT INTO each record in the grades table. 
-- will look similar to this db("INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES [rows];")
-    .then(results => {
-      res.send(results.data);
-    })
-    BUT WITH ROWS data
-- To be more clear ... you can console.log the rows and see how you can better create your query. 
-
-*/
 // -> Multer Upload Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -104,48 +82,15 @@ router.post('/myschooladmin', function (req, res) {
                 res.json(result);
               });
         });
-
-
       });
 
     } else {
-      console.log('The file does not exist.');
-    }
+        console.log('The file does not exist.');
+      }
   } catch (err) {
-    console.error(err);
-  }
-
+      console.error(err);
+    }
 });
-
-// // -> Express Upload RestAPIs
-// router.post('/myschooladmin', function(req, res, next) {
-//   console.log("what is the error?");
-//   importExcelData2MySQL(__basedir + '/uploads/grades.xlsx');
-//   res.json({
-//     'msg': 'File uploaded/import successfully!', 'file': req.file
-//   });
-// });
-
-// // -> Import Excel Data to MySQL database
-// function importExcelData2MySQL(filePath){
-//   // File path.
-//   console.log("And here?")
-//   readXlsxFile(filePath).then((rows) => {
-//     // `rows` is an array of rows
-//     // each row being an array of cells.   
-//     console.log(rows);
-
-//     /**
-//     [ [ subject_id, student_id, grade, semester_assessment ],
-//     [ MYL02,	FTM001,	88.00,	Mid-Sem_1/2020-2021 ],
-//     [ MYL02,	FTJ001,	66.00,	Mid-Sem_1/2020-2021 ],
-//     [ MYL02,	FTU001,	94.00	Mid-Sem_1/2020-2021 ] ] 
-//     */
-
-//     // Remove Header ROW
-//     rows.shift();
-//   });
-// }
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -188,4 +133,69 @@ router.get("/myschooladmin/averagegrade/:student_id", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
+  // Send back the full list of average grades by subject id
+  db(`SELECT subject_id, AVG(grade) FROM grades GROUP BY subject_id;`)
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 module.exports = router;
+
+// TRUNCATE TABLE grades; 
+
+
+/* 
+steps are 
+- initialize readXlslx
+- initialize multer
+- initialize upload variable 
+- write the api post request 
+- follow the steps below
+
+you need to handle the uploading of grades via file upload.
+- post /uploadGrades
+- in the browser example ... your upload object should be ready with the multer initialized. 
+- inside the post you have to also take the ExcelData2MySql
+- readXlsxFile should already be initialized. 
+- then you are writing each row as an INSERT INTO each record in the grades table. 
+- will look similar to this db("INSERT INTO grades (subject_id, student_id, grade, semester_assessment) VALUES [rows];")
+    .then(results => {
+      res.send(results.data);
+    })
+    BUT WITH ROWS data
+- To be more clear ... you can console.log the rows and see how you can better create your query. 
+
+*/
+
+// // -> Express Upload RestAPIs
+// router.post('/myschooladmin', function(req, res, next) {
+//   console.log("what is the error?");
+//   importExcelData2MySQL(__basedir + '/uploads/grades.xlsx');
+//   res.json({
+//     'msg': 'File uploaded/import successfully!', 'file': req.file
+//   });
+// });
+
+// // -> Import Excel Data to MySQL database
+// function importExcelData2MySQL(filePath){
+//   // File path.
+//   console.log("And here?")
+//   readXlsxFile(filePath).then((rows) => {
+//     // `rows` is an array of rows
+//     // each row being an array of cells.   
+//     console.log(rows);
+
+//     /**
+//     [ [ subject_id, student_id, grade, semester_assessment ],
+//     [ MYL02,	FTM001,	88.00,	Mid-Sem_1/2020-2021 ],
+//     [ MYL02,	FTJ001,	66.00,	Mid-Sem_1/2020-2021 ],
+//     [ MYL02,	FTU001,	94.00	Mid-Sem_1/2020-2021 ] ] 
+//     */
+
+//     // Remove Header ROW
+//     rows.shift();
+//   });
+// }

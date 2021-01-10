@@ -20,13 +20,21 @@
       </div>
     </div>  
     <br/><br/>
-    <div class="container-fluid">
-      <div class="row">
-        <h1>Submitted Grades for Mid-Sem 1 | 2020-2021</h1>
-      </div><br/>
-    </div>
-    <div id="table">
-      <b-table id="table" head-variant="dark" sticky-header striped bordered small :items="grades" :fields="fields"></b-table>
+    <div class="media d-flex flex-wrap">
+      <div class="col-md-4">
+        <b-card bg-variant="warning" text-variant="white" header="Average Grades by Subject Mid-Sem 1 | 2020-2021" class="text-center">
+            <b-table id="average-subject" borderless small :items="averageSubjectGrades"></b-table>
+        </b-card>
+      </div>
+      <div class="media-body container-fluid float-right">
+        <apexchart type="bar" :options="options" :series="series"></apexchart>  
+      </div>
+    </div><br/><br/>
+    <div class="container-fluid" style="text-align: center; border: 2px solid salmon; border-radius: 11px; padding: 22px">
+      <h3>Submitted Grades for Mid-Sem 1 | 2020-2021</h3><br/>
+      <div id="table">
+        <b-table id="table" head-variant="dark" sticky-header striped bordered small :items="grades" :fields="fields"></b-table>
+      </div>
     </div><br/><br/>
     <div class="media d-flex flex-wrap">
       <div class="col-md-6">
@@ -39,8 +47,8 @@
         </ul>
       </div> 
       <div class="media-body container-fluid float-right">
-        <b-table id="student-grades" bordered small :items="averageGrade"></b-table>
-        <b-table id="student-grades" bordered small :items="studentGrades"></b-table>
+        <b-table id="student-grades" bordered small table-variant="info" :items="averageGrade"></b-table>
+        <b-table id="student-grades" bordered small table-variant="info" :items="studentGrades"></b-table>
       </div>
     </div>
   </div>
@@ -53,6 +61,37 @@ export default {
   name: "App",
   data() {
     return {
+      options: {
+        chart: {
+          id: 'bar-chart'
+        },
+        xaxis: {
+          categories: [
+            "HYM05",
+            "HYU05",
+            "LAM01",
+            "LAU01",
+            "MSM03",
+            "MSU03",
+            "MYL02",
+            "SEM04",
+            "SEU04",
+            "WRG06"
+          ]
+        },
+        title: {
+          text: 'Average Grades by Subject Final Semester | 2019-2020',
+          align: 'center',
+          style: {
+            fontSize: '20px',
+          },
+        },
+        colors:['#008080'],
+      },
+      series: [{
+        name: 'average-grades',
+        data: [85, 86.95, 78.5, 80.8, 87, 85.8, 69, 90, 94.5, 83.35]
+      }],
       fields: [
         {
           key: 'subject_id',
@@ -79,6 +118,7 @@ export default {
       students: [],
       studentGrades: [],
       averageGrade: [],
+      averageSubjectGrades: [],
     };
   },
 
@@ -86,7 +126,8 @@ export default {
     this.getGrades(),
     this.getStudents(),
     this.getGradesbyStudent(),
-    this.getAverageGrade()
+    this.getAverageGrade(),
+    this.getAverageSubjectGrades()
   },
 
   methods: {
@@ -103,6 +144,7 @@ export default {
     },
     // Add Grades
     async addGrades() {
+      alert("Submitted! Uploading file might take awhile, try refreshing page after a moment to view your grades...");
       try {
         await axios.post("http://localhost:5000/users/myschooladmin", {
           grades: this.grades,
@@ -145,6 +187,17 @@ export default {
         console.log(err);
       }
     },
+    // Get Average Subject Grades
+    async getAverageSubjectGrades() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/users/myschooladmin/averagesubjectgrades`
+        );
+        this.averageSubjectGrades = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     reloadPage() {
     window.location.reload()
     console.log("clicked!")
@@ -178,5 +231,9 @@ export default {
 }
 h4 {
   line-height: 1.8;
+}
+p {
+  background-color: #FFE87C;
+  padding-left: 11px;
 }
 </style>

@@ -199,8 +199,8 @@ export default {
       }
     },
     reloadPage() {
-    window.location.reload()
-    console.log("clicked!")
+      window.location.reload()
+      console.log("clicked!")
     }
   }
 };

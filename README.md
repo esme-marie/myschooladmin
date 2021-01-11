@@ -33,7 +33,7 @@ Built with Vue.Js, Node.Js/ Express.Js and MySQL.
 Tech Stack | Reason
 ---------- | ------
 VueJs | It is reactive, user and developer friendly. It has a simplistic approach and is flexible. It also has good documentation and an impressive support for the platform. It can be easily integrated into other frameworks and this is appealing for future project expansion.
-NodeJs / Express | It uses JavaScript as the main application to create new applications. It is easy to maintain and modify, lightweight and fast. The growing NPM (Node Package Manager) gives developers multiple tools and modules to use.
+NodeJs / ExpressJs | It uses JavaScript as the main application to create new applications. It is easy to maintain and modify, lightweight and fast. The growing NPM (Node Package Manager) gives developers multiple tools and modules to use.
 MySQL | It is an open source database that facilitates effective management of databases and it provides comprehensive support for every application development need. It is stable, reliable and used by many well-known enterprises. It offers data security, on-demand scalability and high performance.
 
 ## Database Schema

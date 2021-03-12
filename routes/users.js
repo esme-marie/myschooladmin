@@ -37,13 +37,13 @@ router.post('/myschooladmin', function (req, res) {
   //checks if the file exists
   try {
     // let filePath = __basedir + "/uploads/" + req.file.filename;
-    if (fs.existsSync('test_file.xlsx')) {
+    if (fs.existsSync('grades.xlsx')) {
 
       console.log("The file exists.");
 
       //only then go through it ..
 
-      readXlsxFile('./test_file.xlsx').then((rows) => {
+      readXlsxFile('./grades.xlsx').then((rows) => {
         // `rows` is an array of rows
         // each row being an array of cells.   
         console.log(rows);
